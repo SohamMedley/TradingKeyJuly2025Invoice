@@ -217,19 +217,70 @@
         .item-price {
             text-align: right;
             font-weight: 700;
-            color: #ffffff;
             font-size: 1.3rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .price-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .original-price {
+            color: #888;
+            font-size: 1rem;
+            text-decoration: line-through;
+            font-weight: 500;
+        }
+
+        .discounted-price {
+            color: #ffffff;
             background: linear-gradient(45deg, #ffffff, #2563eb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .regular-price {
+            color: #ffffff;
+            background: linear-gradient(45deg, #ffffff, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
 
         .total-section {
             margin-top: 50px;
             padding-top: 40px;
             border-top: 3px solid rgba(37, 99, 235, 0.3);
+        }
+
+        .subtotal-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            color: #e8e8e8;
+        }
+
+        .discount-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            color: #10b981;
         }
 
         .total-row {
@@ -240,6 +291,8 @@
             font-size: 2.2rem;
             font-weight: 800;
             font-family: 'Poppins', sans-serif;
+            border-top: 2px solid rgba(37, 99, 235, 0.2);
+            margin-top: 15px;
         }
 
         .total-label {
@@ -416,6 +469,20 @@
             50% { transform: translateY(-25px) rotate(180deg); }
         }
 
+        @media (max-width: 1024px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .invoice-card {
+                padding: 40px 30px;
+            }
+
+            .invoice-title {
+                font-size: 2.5rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px 15px;
@@ -423,6 +490,10 @@
 
             .invoice-title {
                 font-size: 2.2rem;
+            }
+
+            .invoice-subtitle {
+                font-size: 1.1rem;
             }
 
             .invoice-card {
@@ -436,25 +507,60 @@
 
             .items-header,
             .invoice-item {
-                grid-template-columns: 140px 1fr 120px;
+                grid-template-columns: 120px 1fr 140px;
                 gap: 15px;
+                padding: 20px 0;
+            }
+
+            .items-header {
+                font-size: 1rem;
             }
 
             .item-image {
-                width: 140px;
-                height: 79px;
+                width: 120px;
+                height: 68px;
+            }
+
+            .item-description {
+                font-size: 1rem;
+                line-height: 1.3;
+            }
+
+            .price-container {
+                gap: 3px;
+            }
+
+            .original-price {
+                font-size: 0.9rem;
+            }
+
+            .discounted-price,
+            .regular-price {
+                font-size: 1.1rem;
+            }
+
+            .subtotal-row,
+            .discount-row {
+                font-size: 1.2rem;
+                padding: 12px 0;
             }
 
             .total-row {
                 font-size: 1.8rem;
+                padding: 18px 0;
             }
 
             .payment-section {
                 padding: 30px 20px;
+                margin-top: 40px;
             }
 
             .payment-section h3 {
                 font-size: 1.6rem;
+            }
+
+            .payment-section p {
+                font-size: 1rem;
             }
 
             .qr-code {
@@ -466,20 +572,223 @@
                 padding: 12px 25px;
                 font-size: 1rem;
             }
+
+            .floating-circle {
+                display: none;
+            }
         }
 
-        @media (max-width: 480px) {
-            .qr-code {
-                width: 180px;
-                height: 180px;
+        @media (max-width: 640px) {
+            .invoice-title {
+                font-size: 1.8rem;
+            }
+
+            .invoice-subtitle {
+                font-size: 1rem;
+            }
+
+            .invoice-card {
+                padding: 25px 15px;
+            }
+
+            .items-header,
+            .invoice-item {
+                grid-template-columns: 100px 1fr 120px;
+                gap: 10px;
+                padding: 15px 0;
+            }
+
+            .items-header {
+                font-size: 0.9rem;
+            }
+
+            .item-image {
+                width: 100px;
+                height: 56px;
+            }
+
+            .item-description {
+                font-size: 0.9rem;
+                line-height: 1.2;
+            }
+
+            .original-price {
+                font-size: 0.8rem;
+            }
+
+            .discounted-price,
+            .regular-price {
+                font-size: 1rem;
+            }
+
+            .subtotal-row,
+            .discount-row {
+                font-size: 1.1rem;
+                padding: 10px 0;
+            }
+
+            .total-row {
+                font-size: 1.5rem;
+                padding: 15px 0;
+            }
+
+            .payment-section {
+                padding: 25px 15px;
             }
 
             .payment-section h3 {
                 font-size: 1.4rem;
             }
 
-            .payment-section p {
+            .qr-code {
+                width: 180px;
+                height: 180px;
+            }
+
+            .download-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .invoice-title {
+                font-size: 1.6rem;
+                line-height: 1.2;
+            }
+
+            .invoice-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .invoice-card {
+                padding: 20px 12px;
+            }
+
+            .info-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .info-section p {
                 font-size: 1rem;
+            }
+
+            .items-header,
+            .invoice-item {
+                grid-template-columns: 80px 1fr 100px;
+                gap: 8px;
+                padding: 12px 0;
+            }
+
+            .items-header {
+                font-size: 0.8rem;
+            }
+
+            .item-image {
+                width: 80px;
+                height: 45px;
+            }
+
+            .item-description {
+                font-size: 0.8rem;
+                line-height: 1.1;
+            }
+
+            .price-container {
+                gap: 2px;
+            }
+
+            .original-price {
+                font-size: 0.7rem;
+            }
+
+            .discounted-price,
+            .regular-price {
+                font-size: 0.9rem;
+            }
+
+            .subtotal-row,
+            .discount-row {
+                font-size: 1rem;
+                padding: 8px 0;
+            }
+
+            .total-row {
+                font-size: 1.3rem;
+                padding: 12px 0;
+            }
+
+            .payment-section {
+                padding: 20px 12px;
+            }
+
+            .payment-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .payment-section p {
+                font-size: 0.9rem;
+            }
+
+            .qr-code {
+                width: 160px;
+                height: 160px;
+            }
+
+            .download-btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+
+            .download-icon {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .invoice-title {
+                font-size: 1.4rem;
+            }
+
+            .invoice-card {
+                padding: 15px 10px;
+            }
+
+            .items-header,
+            .invoice-item {
+                grid-template-columns: 70px 1fr 90px;
+                gap: 6px;
+                padding: 10px 0;
+            }
+
+            .item-image {
+                width: 70px;
+                height: 39px;
+            }
+
+            .item-description {
+                font-size: 0.75rem;
+            }
+
+            .discounted-price,
+            .regular-price {
+                font-size: 0.8rem;
+            }
+
+            .subtotal-row,
+            .discount-row,
+            .total-row {
+                font-size: 0.9rem;
+            }
+
+            .total-row {
+                font-size: 1.1rem;
+            }
+
+            .qr-code {
+                width: 140px;
+                height: 140px;
             }
         }
     </style>
@@ -502,7 +811,7 @@
                 <div class="info-section">
                     <h3>Invoice Details</h3>
                     <p>Invoice: <strong>#INV-2025-07</strong></p>
-                    <p>Date: <strong>06/07/2025</strong></p>
+                    <p>Date: <strong>16/07/2025</strong></p>
                 </div>
                 <div class="info-section">
                     <h3>Bill To</h3>
@@ -521,47 +830,84 @@
                 <div class="invoice-item">
                     <img src="Images/TradingKey T1.jpg" alt="TradingKey Thumbnail 1" class="item-image">
                     <div class="item-description">Trading Key Live Stream Thumbnail-1</div>
-                    <div class="item-price">₹350</div>
+                    <div class="item-price">
+                        <div class="price-container">
+                            <div class="original-price">₹500</div>
+                            <div class="discounted-price">₹350</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="invoice-item">
                     <img src="Images/TradingKey T2.jpg" alt="TradingKey Thumbnail 2" class="item-image">
                     <div class="item-description">Trading Key Live Stream Thumbnail-2</div>
-                    <div class="item-price">₹350</div>
+                    <div class="item-price">
+                        <div class="price-container">
+                            <div class="original-price">₹500</div>
+                            <div class="discounted-price">₹350</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="invoice-item">
                     <img src="Images/TradingKey RT1.jpg" alt="TradingKey Reel Thumbnail 1" class="item-image">
                     <div class="item-description">Trading Key Intro Reel Thumbnail-1</div>
-                    <div class="item-price">₹150</div>
+                    <div class="item-price">
+                        <div class="price-container">
+                            <div class="original-price">₹250</div>
+                            <div class="discounted-price">₹150</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="invoice-item">
                     <img src="Images/TradingKey RT2.jpg" alt="TradingKey Reel Thumbnail 2" class="item-image">
                     <div class="item-description">Trading Key Day01 to Day07 Reel Thumbnail-2</div>
-                    <div class="item-price">₹150</div>
+                    <div class="item-price">
+                        <div class="price-container">
+                            <div class="original-price">₹250</div>
+                            <div class="discounted-price">₹150</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="invoice-item">
                     <img src="Images/TradingKey Banner.jpg" alt="Trading Key YT Banner" class="item-image">
                     <div class="item-description">Trading Key YT Banner</div>
-                    <div class="item-price">₹350</div>
+                    <div class="item-price">
+                        <div class="regular-price">₹350</div>
+                    </div>
                 </div>
 
                 <div class="invoice-item">
                     <img src="Images/TradingKey Overlay.jpg" alt="Trading Key YT Live Stream Overlay" class="item-image">
                     <div class="item-description">Trading Key YT Live Stream Overlay</div>
-                    <div class="item-price">₹500</div>
+                    <div class="item-price">
+                        <div class="regular-price">₹500</div>
+                    </div>
                 </div>
 
                 <div class="invoice-item">
                     <img src="Images/CryptoKey Poster.jpg" alt="Crypto Key Prime Poster" class="item-image">
                     <div class="item-description">Crypto Key Prime Poster</div>
-                    <div class="item-price">₹350</div>
+                    <div class="item-price">
+                        <div class="price-container">
+                            <div class="original-price">₹500</div>
+                            <div class="discounted-price">₹350</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="total-section">
+                <div class="subtotal-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal-amount">₹2,750</span>
+                </div>
+                <div class="discount-row">
+                    <span>Discount:</span>
+                    <span id="discount-amount">-₹550</span>
+                </div>
                 <div class="total-row">
                     <span class="total-label">Total Amount:</span>
                     <span class="total-amount" id="total-amount">₹2,200</span>
@@ -585,20 +931,39 @@
     </div>
 
     <script>
-        // Calculate and animate total
-        function animateTotal() {
+        // Calculate and animate totals
+        function animateTotals() {
+            const subtotalElement = document.getElementById('subtotal-amount');
+            const discountElement = document.getElementById('discount-amount');
             const totalElement = document.getElementById('total-amount');
-            const targetAmount = 2200;
-            let currentAmount = 0;
-            const increment = targetAmount / 60;
+            
+            const targetSubtotal = 2750;
+            const targetDiscount = 550;
+            const targetTotal = 2200;
+            
+            let currentSubtotal = 0;
+            let currentDiscount = 0;
+            let currentTotal = 0;
+            
+            const incrementSubtotal = targetSubtotal / 60;
+            const incrementDiscount = targetDiscount / 60;
+            const incrementTotal = targetTotal / 60;
             
             const animation = setInterval(() => {
-                currentAmount += increment;
-                if (currentAmount >= targetAmount) {
-                    currentAmount = targetAmount;
+                currentSubtotal += incrementSubtotal;
+                currentDiscount += incrementDiscount;
+                currentTotal += incrementTotal;
+                
+                if (currentSubtotal >= targetSubtotal) {
+                    currentSubtotal = targetSubtotal;
+                    currentDiscount = targetDiscount;
+                    currentTotal = targetTotal;
                     clearInterval(animation);
                 }
-                totalElement.textContent = `₹${Math.floor(currentAmount).toLocaleString()}`;
+                
+                subtotalElement.textContent = `₹${Math.floor(currentSubtotal).toLocaleString()}`;
+                discountElement.textContent = `-₹${Math.floor(currentDiscount).toLocaleString()}`;
+                totalElement.textContent = `₹${Math.floor(currentTotal).toLocaleString()}`;
             }, 25);
         }
 
@@ -673,7 +1038,7 @@
 
         // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(animateTotal, 1200);
+            setTimeout(animateTotals, 1200);
             addHoverEffects();
             addSparkleEffect();
         });
