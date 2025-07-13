@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Invoice - TradingKey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .invoice-header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6, #1e40af);
+            border-radius: 2px;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .invoice-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffffff, #2563eb, #3b82f6, #1e40af);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .invoice-subtitle {
+            font-size: 1.2rem;
+            color: #2563eb;
+            font-weight: 400;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .invoice-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            animation: slideIn 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .invoice-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+            align-items: start;
+        }
+
+        .info-section h3 {
+            color: #2563eb;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .info-section p {
+            color: #e8e8e8;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .info-section strong {
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .items-container {
+            margin: 50px 0;
+        }
+
+        .items-header {
+            display: grid;
+            grid-template-columns: 180px 1fr 150px;
+            gap: 30px;
+            padding: 25px 0;
+            border-bottom: 3px solid rgba(37, 99, 235, 0.3);
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .invoice-item {
+            display: grid;
+            grid-template-columns: 180px 1fr 150px;
+            gap: 30px;
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            align-items: center;
+            transition: all 0.4s ease;
+            animation: itemFadeIn 0.8s ease-out both;
+        }
+
+        .invoice-item:nth-child(1) { animation-delay: 0.1s; }
+        .invoice-item:nth-child(2) { animation-delay: 0.2s; }
+        .invoice-item:nth-child(3) { animation-delay: 0.3s; }
+        .invoice-item:nth-child(4) { animation-delay: 0.4s; }
+        .invoice-item:nth-child(5) { animation-delay: 0.5s; }
+        .invoice-item:nth-child(6) { animation-delay: 0.6s; }
+        .invoice-item:nth-child(7) { animation-delay: 0.7s; }
+
+        @keyframes itemFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .invoice-item:hover {
+            background: rgba(37, 99, 235, 0.03);
+            transform: translateX(15px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.08);
+        }
+
+        .item-image {
+            width: 160px;
+            height: 90px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 3px solid rgba(37, 99, 235, 0.2);
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .item-image:hover {
+            transform: scale(1.1) rotate(2deg);
+            border-color: #2563eb;
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.3);
+        }
+
+        .item-description {
+            color: #f0f0f0;
+            font-weight: 500;
+            font-size: 1.1rem;
+            line-height: 1.4;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .item-price {
+            text-align: right;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.3rem;
+            background: linear-gradient(45deg, #ffffff, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .total-section {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 3px solid rgba(37, 99, 235, 0.3);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            font-size: 2.2rem;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .total-label {
+            color: #2563eb;
+        }
+
+        .total-amount {
+            color: #ffffff;
+            background: linear-gradient(45deg, #ffffff, #2563eb, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s infinite;
+            text-shadow: 0 0 30px rgba(37, 99, 235, 0.2);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* QR Code Payment Section */
+        .payment-section {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(37, 99, 235, 0.03);
+            border-radius: 20px;
+            border: 2px solid rgba(37, 99, 235, 0.15);
+            animation: paymentGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes paymentGlow {
+            0%, 100% { 
+                box-shadow: 0 0 30px rgba(37, 99, 235, 0.15);
+                border-color: rgba(37, 99, 235, 0.15);
+            }
+            50% { 
+                box-shadow: 0 0 50px rgba(59, 130, 246, 0.2);
+                border-color: rgba(59, 130, 246, 0.2);
+            }
+        }
+
+        .payment-section h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffffff, #2563eb, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .payment-section p {
+            font-size: 1.1rem;
+            color: #e8e8e8;
+            margin-bottom: 30px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .qr-code {
+            width: 250px;
+            height: 250px;
+            border-radius: 20px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            animation: qrFadeIn 1s ease-out 0.8s both;
+        }
+
+        @keyframes qrFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .qr-code:hover {
+            transform: scale(1.05);
+            border-color: #2563eb;
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);
+        }
+
+        .download-btn {
+            background: linear-gradient(45deg, #2563eb, #3b82f6);
+            color: #ffffff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+            background: linear-gradient(45deg, #3b82f6, #2563eb);
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .download-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.02);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-circle:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+        }
+
+        .floating-circle:nth-child(2) {
+            width: 180px;
+            height: 180px;
+            top: 55%;
+            right: 8%;
+            animation-delay: 2.5s;
+        }
+
+        .floating-circle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 15%;
+            left: 15%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .invoice-title {
+                font-size: 2.2rem;
+            }
+
+            .invoice-card {
+                padding: 30px 20px;
+            }
+
+            .invoice-info {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .items-header,
+            .invoice-item {
+                grid-template-columns: 140px 1fr 120px;
+                gap: 15px;
+            }
+
+            .item-image {
+                width: 140px;
+                height: 79px;
+            }
+
+            .total-row {
+                font-size: 1.8rem;
+            }
+
+            .payment-section {
+                padding: 30px 20px;
+            }
+
+            .payment-section h3 {
+                font-size: 1.6rem;
+            }
+
+            .qr-code {
+                width: 200px;
+                height: 200px;
+            }
+
+            .download-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .qr-code {
+                width: 180px;
+                height: 180px;
+            }
+
+            .payment-section h3 {
+                font-size: 1.4rem;
+            }
+
+            .payment-section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="container">
+        <div class="invoice-header">
+            <h1 class="invoice-title">TRADINGKEY JULY 2025 - INVOICE</h1>
+            <p class="invoice-subtitle">Thumbnail, Reel Thumbnail, Poster, Overlay and Banner</p>
+        </div>
+
+        <div class="invoice-card">
+            <div class="invoice-info">
+                <div class="info-section">
+                    <h3>Invoice Details</h3>
+                    <p>Invoice: <strong>#INV-2025-07</strong></p>
+                    <p>Date: <strong>06/07/2025</strong></p>
+                </div>
+                <div class="info-section">
+                    <h3>Bill To</h3>
+                    <p><strong>TradingKey</strong></p>
+                    <p>@tradingkeyofficial</p>
+                </div>
+            </div>
+
+            <div class="items-container">
+                <div class="items-header">
+                    <div>Product</div>
+                    <div>Description</div>
+                    <div>Amount</div>
+                </div>
+
+                <div class="invoice-item">
+                    <img src="Images/TradingKey T1.jpg" alt="TradingKey Thumbnail 1" class="item-image">
+                    <div class="item-description">Trading Key Live Stream Thumbnail-1</div>
+                    <div class="item-price">₹350</div>
+                </div>
+
+                <div class="invoice-item">
+                    <img src="Images/TradingKey T2.jpg" alt="TradingKey Thumbnail 2" class="item-image">
+                    <div class="item-description">Trading Key Live Stream Thumbnail-2</div>
+                    <div class="item-price">₹350</div>
+                </div>
+
+                <div class="invoice-item">
+                    <img src="Images/TradingKey RT1.jpg" alt="TradingKey Reel Thumbnail 1" class="item-image">
+                    <div class="item-description">Trading Key Intro Reel Thumbnail-1</div>
+                    <div class="item-price">₹150</div>
+                </div>
+
+                <div class="invoice-item">
+                    <img src="Images/TradingKey RT2.jpg" alt="TradingKey Reel Thumbnail 2" class="item-image">
+                    <div class="item-description">Trading Key Day01 to Day07 Reel Thumbnail-2</div>
+                    <div class="item-price">₹150</div>
+                </div>
+
+                <div class="invoice-item">
+                    <img src="Images/TradingKey Banner.jpg" alt="Trading Key YT Banner" class="item-image">
+                    <div class="item-description">Trading Key YT Banner</div>
+                    <div class="item-price">₹350</div>
+                </div>
+
+                <div class="invoice-item">
+                    <img src="Images/TradingKey Overlay.jpg" alt="Trading Key YT Live Stream Overlay" class="item-image">
+                    <div class="item-description">Trading Key YT Live Stream Overlay</div>
+                    <div class="item-price">₹500</div>
+                </div>
+
+                <div class="invoice-item">
+                    <img src="Images/CryptoKey Poster.jpg" alt="Crypto Key Prime Poster" class="item-image">
+                    <div class="item-description">Crypto Key Prime Poster</div>
+                    <div class="item-price">₹350</div>
+                </div>
+            </div>
+
+            <div class="total-section">
+                <div class="total-row">
+                    <span class="total-label">Total Amount:</span>
+                    <span class="total-amount" id="total-amount">₹2,200</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-section">
+            <h3>Scan to Pay</h3>
+            <p>Use any UPI app to scan the QR code and make payment</p>
+            <div class="qr-container">
+                <img src="Images/pay.png" alt="Payment QR Code" class="qr-code" id="qr-image">
+                <button class="download-btn" onclick="downloadQR()">
+                    <svg class="download-icon" viewBox="0 0 24 24">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                    </svg>
+                    Download QR Code
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Calculate and animate total
+        function animateTotal() {
+            const totalElement = document.getElementById('total-amount');
+            const targetAmount = 2200;
+            let currentAmount = 0;
+            const increment = targetAmount / 60;
+            
+            const animation = setInterval(() => {
+                currentAmount += increment;
+                if (currentAmount >= targetAmount) {
+                    currentAmount = targetAmount;
+                    clearInterval(animation);
+                }
+                totalElement.textContent = `₹${Math.floor(currentAmount).toLocaleString()}`;
+            }, 25);
+        }
+
+        // Add hover effects to items
+        function addHoverEffects() {
+            const items = document.querySelectorAll('.invoice-item');
+            items.forEach((item, index) => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'translateX(15px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'translateX(0) scale(1)';
+                });
+            });
+        }
+
+        // Download QR Code function
+        function downloadQR() {
+            const link = document.createElement('a');
+            link.href = 'Images/pay.png';
+            link.download = 'pay.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Add sparkle effect on click
+        function addSparkleEffect() {
+            document.addEventListener('click', (e) => {
+                createSparkle(e.clientX, e.clientY);
+            });
+        }
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.width = '12px';
+            sparkle.style.height = '12px';
+            sparkle.style.background = 'linear-gradient(45deg, #2563eb, #ffffff)';
+            sparkle.style.borderRadius = '50%';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '1000';
+            sparkle.style.animation = 'sparkleAnimation 0.8s ease-out forwards';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 800);
+        }
+
+        // Add sparkle animation CSS
+        const sparkleCSS = `
+            @keyframes sparkleAnimation {
+                0% {
+                    transform: scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(3) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = sparkleCSS;
+        document.head.appendChild(style);
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(animateTotal, 1200);
+            addHoverEffects();
+            addSparkleEffect();
+        });
+
+        // Add smooth scrolling
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
